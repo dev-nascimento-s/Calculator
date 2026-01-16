@@ -12,7 +12,7 @@ function App() {
 
 
   const addNumber = (number) => {
-    if (waitingForNewNumber ) {
+    if (waitingForNewNumber) {
       setResult(number);
       setExpression((prev) => prev + number);
       setWaitingForNewNumber(false);
@@ -37,14 +37,31 @@ function App() {
     const num1 = Number(previousNumber);
     const num2 = Number(result);
 
-    let newResult = 0;
 
-    if (operator === "+") newResult = num1 + num2;
-    if (operator === "-") newResult = num1 - num2;
-    if (operator === "*") newResult = num1 * num2;
-    if (operator === "/") {
-      newResult = num2 !== 0 ? num1 / num2 : "Error";
+
+    let newResult;
+
+    switch (operator) {
+      case "+":
+        newResult = num1 + num2;
+        break;
+
+      case "-":
+        newResult = num1 - num2;
+        break;
+
+      case "*":
+        newResult = num1 * num2;
+        break;
+
+      case "/":
+        newResult = num2 !== 0 ? num1 / num2 : "Error";
+        break;
+
+      default:
+        newResult = "Operator invalid";
     }
+
 
     setResult(String(newResult));
     setExpression(String(newResult));
@@ -61,7 +78,7 @@ function App() {
     setWaitingForNewNumber(false);
   };
 
-  
+
   const buttons = [
     { label: "C", action: clearAll, type: "special" },
     { label: "/", action: () => chooseOperator("/") },
